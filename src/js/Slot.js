@@ -1,78 +1,74 @@
-import Reel from "./Reel.js";
-import Symbol from "./Symbol.js";
+/** @format */
+
+import Reel from "./Reel.js"
+import Symbol from "./Symbol.js"
 
 export default class Slot {
-  constructor(domElement, config = {}) {
-    Symbol.preload();
+	constructor(domElement, config = {}) {
+		Symbol.preload()
 
-    this.currentSymbols = [
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-    ];
+		this.currentSymbols = [
+			["bar", "bar", "bar"],
+			["bar", "bar", "bar"],
+			["bar", "bar", "bar"],
+		]
 
-    this.nextSymbols = [
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-      ["death_star", "death_star", "death_star"],
-    ];
+		this.nextSymbols = [
+			["bar", "bar", "bar"],
+			["bar", "bar", "bar"],
+			["bar", "bar", "bar"],
+		]
 
-    this.container = domElement;
+		this.container = domElement
 
-    this.reels = Array.from(this.container.getElementsByClassName("reel")).map(
-      (reelContainer, idx) =>
-        new Reel(reelContainer, idx, this.currentSymbols[idx])
-    );
+		this.reels = Array.from(this.container.getElementsByClassName("reel")).map(
+			(reelContainer, idx) =>
+				new Reel(reelContainer, idx, this.currentSymbols[idx])
+		)
 
-    this.spinButton = document.getElementById("spin");
-    this.spinButton.addEventListener("click", () => this.spin());
+		this.spinButton = document.getElementById("spin")
+		this.spinButton.addEventListener("click", () => this.spin())
 
-    this.autoPlayCheckbox = document.getElementById("autoplay");
+		this.autoPlayCheckbox = document.getElementById("autoplay")
 
-    if (config.inverted) {
-      this.container.classList.add("inverted");
-    }
+		if (config.inverted) {
+			this.container.classList.add("inverted")
+		}
 
-    this.config = config;
-  }
+		this.config = config
+	}
 
-  spin() {
-    this.currentSymbols = this.nextSymbols;
-    this.nextSymbols = [
-      [Symbol.random(), Symbol.random(), Symbol.random()],
-      [Symbol.random(), Symbol.random(), Symbol.random()],
-      [Symbol.random(), Symbol.random(), Symbol.random()],
-      [Symbol.random(), Symbol.random(), Symbol.random()],
-      [Symbol.random(), Symbol.random(), Symbol.random()],
-    ];
+	spin() {
+		this.currentSymbols = this.nextSymbols
+		this.nextSymbols = [
+			[Symbol.random(), Symbol.random(), Symbol.random()],
+			[Symbol.random(), Symbol.random(), Symbol.random()],
+			[Symbol.random(), Symbol.random(), Symbol.random()],
+		]
 
-    this.onSpinStart(this.nextSymbols);
+		this.onSpinStart(this.nextSymbols)
 
-    return Promise.all(
-      this.reels.map((reel) => {
-        reel.renderSymbols(this.nextSymbols[reel.idx]);
-        return reel.spin();
-      })
-    ).then(() => this.onSpinEnd(this.nextSymbols));
-  }
+		return Promise.all(
+			this.reels.map((reel) => {
+				reel.renderSymbols(this.nextSymbols[reel.idx])
+				return reel.spin()
+			})
+		).then(() => this.onSpinEnd(this.nextSymbols))
+	}
 
-  onSpinStart(symbols) {
-    this.spinButton.disabled = true;
+	onSpinStart(symbols) {
+		this.spinButton.disabled = true
 
-    this.config.onSpinStart?.(symbols);
-  }
+		this.config.onSpinStart?.(symbols)
+	}
 
-  onSpinEnd(symbols) {
-    this.spinButton.disabled = false;
+	onSpinEnd(symbols) {
+		this.spinButton.disabled = false
 
-    this.config.onSpinEnd?.(symbols);
+		this.config.onSpinEnd?.(symbols)
 
-    if (this.autoPlayCheckbox.checked) {
-      return window.setTimeout(() => this.spin(), 200);
-    }
-  }
+		if (this.autoPlayCheckbox.checked) {
+			return window.setTimeout(() => this.spin(), 200)
+		}
+	}
 }

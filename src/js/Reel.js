@@ -23,7 +23,7 @@ export default class Reel {
         },
       ],
       {
-        duration: this.factor * 1000,
+        duration: this.factor * 200,
         easing: "ease-in-out",
       }
     );

@@ -1,79 +1,95 @@
+/** @format */
+
 body {
-  width: 100vw;
-  height: 100vh;
-  padding: 1rem;
-  background-image: url("../assets/bg.jpg");
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-family: "Roboto Condensed", sans-serif;
-}
+	width: 100vw;
+	height: 100vh;
 
-@media only screen and (max-width: 1200px) {
-  body {
-    background-image: url("../assets/bg_small.jpg");
-  }
-}
+	background-image: url("../assets/bg_casino.jpg");
 
+	background-size: cover;
+
+	font-size: 24px;
+	font-family: "Roboto Condensed", sans-serif;
+}
+.container_casino {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.39);
+	display: flex;
+
+	justify-content: space-between;
+	justify-content: center;
+}
+.one_side {
+	width: 50%;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.39);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 #reels {
-  display: flex;
-  width: 100vw;
-  height: calc((3 / 5) * 100vw);
-  max-height: calc(90vh - 50px - 40px);
-  max-width: calc((5 / 3) * (90vh - 50px - 40px));
+	display: flex;
+	width: 100vw;
+	height: 200px;
+	max-height: calc(90vh - 50px - 40px);
+	max-width: calc((3 / 3) * (90vh - 50px - 40px));
+	justify-content: space-between;
 }
 
 .reel {
-  overflow: hidden;
-  width: 20%;
-  height: 100%;
+	overflow: hidden;
+	width: auto;
+	height: 100%;
 }
 
 .reel > .icons > img {
-  width: calc(100% + 6px);
-  margin: -3px 0 0 -3px;
-  height: auto;
+	width: 200px;
+	margin: -3px 0 0 -3px;
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  /* enable gpu accelaration, fixes iOS flicker */
-  transform: translate3d(0, 0, 0);
+	/* enable gpu accelaration, fixes iOS flicker */
+	transform: translate3d(0, 0, 0);
 }
 
 #controls {
-  background-color: rgba(255, 255, 255, 0.9);
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 30px;
+	background-color: rgba(255, 255, 255, 0.9);
+	height: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px 30px;
 }
 
 #controls label {
-  display: flex;
-  align-items: center;
-  margin: 0;
+	display: flex;
+	align-items: center;
+	margin: 0;
 }
 
 #controls label input {
-  margin-right: 5px;
+	margin-right: 5px;
 }
 
 input[type="checkbox"] {
-  width: 40px;
-  height: 40px;
+	width: 40px;
+	height: 40px;
 }
 
 #jackpot {
-  color: #d5ad6d;
-  font-size: 40px;
-  text-align: center;
+	color: #d5ad6d;
+	font-size: 40px;
+	text-align: center;
 }
 
 #slot.inverted .reel {
-  transform: scaleY(-1);
+	transform: scaleY(-1);
 }
 
 #slot.inverted .reel > .icons > img {
-  transform: scaleY(-1);
+	transform: scaleY(-1);
 }
